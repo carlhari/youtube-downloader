@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 function Form(props) {
   const [search, setSearch] = useState('');
   const [videos, setVideos] = useState([]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+    props.unclearItems()
+
     fetch('/api/request', {
       method: 'POST',
       headers: {
@@ -49,6 +49,7 @@ function Form(props) {
   };
   
   const handleDownloadAudio = (videoId) => {
+    props.unclearItems
     fetch('/api/download/audio', {
       method: 'POST',
       headers: {
@@ -81,11 +82,12 @@ function Form(props) {
         type="text"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
+        className='inputSearch'
         required
       />
       <button type="submit">Search</button>
     </form>
-    <div className="videoList">
+    <div className="videoList" style={{display: props.clear? 'none':'block'}}>
       <div className="gallery">
         {videos.map((video, index) => (
           <div key={index} className="videoItem">
@@ -108,8 +110,9 @@ function Form(props) {
           </div>
         ))}
       </div>
-      
     </div>
+
+    <div className="description">Disclaimer: The app "YouTube Downloader" is provided for educational purposes only and users are responsible for ensuring compliance with copyright laws while using the app to download YouTube videos.</div>
 
     </>
   );

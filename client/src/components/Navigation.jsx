@@ -4,7 +4,7 @@ function Navigation(props) {
   return (
    <>
     <div className="nav">
-        <div className="title" onClick={props.handleNavShow}>Youtube Downloader</div>
+        <div className="title" onClick={props.clearItems}>Youtube Downloader</div>
     </div>
     </>
   )
